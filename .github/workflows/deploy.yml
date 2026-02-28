@@ -1,0 +1,22 @@
+name: Deploy to Juno
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # ruční spuštění z GitHubu
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write     # nutné pro OIDC
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Juno
+        uses: junobuild/juno-action
+        with:
+          args: hosting deploy
